@@ -53,7 +53,6 @@
             <list>
                 <value>t_user_00</value>
                 <value>t_user_01</value>
-                <value>t_user_02</value>
             </list>
         </constructor-arg>
         <constructor-arg index="2" ref="dataSourceRule"/>
@@ -80,6 +79,19 @@
 
 
     <!-- 对t_student表的配置，进行分库配置，逻辑表名为t_student，每个库有实际的三张表 -->
+    <!--<bean id="studentTableRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.TableRule">-->
+        <!--<constructor-arg value="t_student" index="0"/>-->
+        <!--<constructor-arg index="1">-->
+            <!--<list>-->
+                <!--<value>t_student_00</value>-->
+                <!--<value>t_student_01</value>-->
+            <!--</list>-->
+        <!--</constructor-arg>-->
+        <!--<constructor-arg index="2" ref="dataSourceRule"/>-->
+        <!--<constructor-arg index="3" ref="studentDatabaseShardingStrategy"/>-->
+        <!--<constructor-arg index="4" ref="studentTableShardingStrategy"/>-->
+    <!--</bean>-->
+
     <bean id="studentTableRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.TableRule">
         <constructor-arg value="t_student" index="0"/>
         <constructor-arg index="1">
@@ -89,9 +101,21 @@
             </list>
         </constructor-arg>
         <constructor-arg index="2" ref="dataSourceRule"/>
-        <constructor-arg index="3" ref="studentDatabaseShardingStrategy"/>
-        <constructor-arg index="4" ref="studentTableShardingStrategy"/>
+        <constructor-arg index="3" ref="userDatabaseShardingStrategy"/>
+        <constructor-arg index="4" ref="userTableShardingStrategy"/>
     </bean>
+    
+    
+    <bean id="studentBindTableRule" class="com.dangdang.ddframe.rdb.sharding.api.rule.BindingTableRule">
+
+        <constructor-arg>
+            <list>
+                <ref bean="studentTableRule"/>
+                <ref bean="userTableRule"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    
 
     <!-- t_student分库策略 -->
     <bean id="studentDatabaseShardingStrategy" class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.DatabaseShardingStrategy">
@@ -117,6 +141,11 @@
             <list>
                 <ref bean="userTableRule"/>
                 <ref bean="studentTableRule"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <list>
+                <ref bean="studentBindTableRule"/>
             </list>
         </constructor-arg>
     </bean>

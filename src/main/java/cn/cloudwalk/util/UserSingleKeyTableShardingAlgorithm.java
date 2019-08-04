@@ -18,7 +18,7 @@ public class UserSingleKeyTableShardingAlgorithm implements SingleKeyTableShardi
      */  
     public String doEqualSharding(Collection<String> tableNames, ShardingValue<Integer> shardingValue) {  
         for (String each : tableNames) {  
-            if (each.endsWith(("0".concat(String.valueOf(shardingValue.getValue() % 3))))) {
+            if (each.endsWith(("0".concat(String.valueOf(shardingValue.getValue() % 2))))) {
                 return each;  
             }  
         }  
@@ -32,7 +32,7 @@ public class UserSingleKeyTableShardingAlgorithm implements SingleKeyTableShardi
         Collection<String> result = new LinkedHashSet<String>(tableNames.size());  
         for (Integer value : shardingValue.getValues()) {  
             for (String tableName : tableNames) {  
-                if (tableName.endsWith(("0".concat(String.valueOf(value % 3))))) {  
+                if (tableName.endsWith(("0".concat(String.valueOf(value % 2))))) {
                     result.add(tableName);  
                 }  
             }  
@@ -49,7 +49,7 @@ public class UserSingleKeyTableShardingAlgorithm implements SingleKeyTableShardi
         Range<Integer> range = (Range<Integer>) shardingValue.getValueRange();  
         for (Integer i = range.lowerEndpoint(); i <= range.upperEndpoint(); i++) {  
             for (String each : tableNames) {  
-                if (each.endsWith(("0".concat(String.valueOf(i % 3))))) {  
+                if (each.endsWith(("0".concat(String.valueOf(i % 2))))) {
                     result.add(each);  
                 }  
             }  

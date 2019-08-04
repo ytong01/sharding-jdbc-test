@@ -9,7 +9,7 @@
     </resultMap>
 
     <insert id="insert">
-        insert into t_student (student_id,name,age) values (#{studentId},#{name},#{age})
+        insert into t_student (student_id,name,age, user_id) values (#{studentId},#{name},#{age}, #{userId})
     </insert>
 
     <select id="findAll" resultMap="resultMap">

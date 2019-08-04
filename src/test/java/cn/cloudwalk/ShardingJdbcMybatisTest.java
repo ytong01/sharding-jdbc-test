@@ -41,9 +41,11 @@ public class ShardingJdbcMybatisTest {
     @Test  
     public void testStudentInsert() {  
         Student student = new Student();
-        student.setStudentId(21);  
+        student.setStudentId(24);
         student.setAge(21);  
-        student.setName("hehe");  
+        student.setName("hehe");
+        student.setUserId(31);
+
         Assert.assertEquals(studentService.insert(student), true);  
     }  
  
@@ -55,8 +57,18 @@ public class ShardingJdbcMybatisTest {
                 System.out.println(u);  
             }  
         }  
-    }  
-      
+    }
+
+    @Test
+    public void testFindAllStudents(){
+        List<Student> users = studentService.findAll();
+        if(null != users && !users.isEmpty()){
+            for(Student u :users){
+                System.out.println(u);
+            }
+        }
+    }
+
     @Test  
     public void testSQLIN(){  
         List<User> users = userService.findByUserIds(Arrays.asList(10, 11));
@@ -65,8 +77,11 @@ public class ShardingJdbcMybatisTest {
                 System.out.println(u);  
             }  
         }  
-    }  
-      
+    }
+
+    /**
+     * shardingjdbc 支持异库事务
+     */
     @Test  
     public void testTransactionTestSucess(){  
         userService.transactionTestSucess();  

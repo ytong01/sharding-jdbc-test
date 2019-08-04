@@ -37,16 +37,16 @@ public class UserServiceImpl implements UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     public void transactionTestSucess() {
         User u = new User();
-        u.setUserId(13);
+        u.setUserId(17);
         u.setAge(25);
         u.setName("war3 1.27");
         userMapper.insert(u);
 
-//        if (10 % 0 == 0) {
-//            throw new RuntimeException();
-//        }
+        if (10 % 0 == 0) {
+            throw new RuntimeException();
+        }
         Student student = new Student();
-        student.setStudentId(21);
+        student.setStudentId(20);
         student.setAge(21);
         student.setName("hehe");
         studentMapper.insert(student);

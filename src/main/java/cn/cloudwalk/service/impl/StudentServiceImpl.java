@@ -6,7 +6,8 @@ import cn.cloudwalk.service.StudentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-  
+import java.util.List;
+
 @Service  
 public class StudentServiceImpl implements StudentService {
       
@@ -15,6 +16,10 @@ public class StudentServiceImpl implements StudentService {
   
     public boolean insert(Student student) {
         return studentMapper.insert(student) > 0 ? true : false;  
-    }  
+    }
+
+    public List<Student> findAll() {
+        return studentMapper.findAll();
+    }
   
 }  
